@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E78F6933-5303-4FF9-A0A1-7AFA6CB202D8}|Mo\u017En\u00E1 funk\u010Dn\u00ED projekt.vcxproj|C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E78F6933-5303-4FF9-A0A1-7AFA6CB202D8}|Mo\u017En\u00E1 funk\u010Dn\u00ED projekt.vcxproj|solutionrelative:Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +23,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Source.cpp",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp",
+              "RelativeDocumentMoniker": "Source.cpp",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp",
+              "RelativeToolTip": "Source.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-08T17:04:29.95Z",
+              "EditorCaption": ""
             }
           ]
         }

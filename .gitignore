@@ -1,0 +1,29 @@
+# Visual Studio cache directories
+.vs/
+x64/
+Debug/
+Release/
+
+# User-specific files
+*.user
+*.suo
+
+# Build results
+*.exe
+*.obj
+*.log
+*.pch
+*.pdb
+
+# SQLite files
+*.db
+*.db-wal
+*.db-shm
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Other logs
+*.log
