@@ -237,14 +237,13 @@ int main()
 
 	int aktivniBlok = GetRandomNumber(PocetBloku);
 	int* aktivniData = blocks[aktivniBlok];
-	//int rotovanyBlok[COLUMNS * ROWS]; // pùvodní nepotøebné — smazáno
 
 	int sirka = sirkabloku[aktivniBlok];
 	int vyska = vyskabloku[aktivniBlok];
 	int x = (COLUMNS - sirka) / 2;
 	int y = 0;
 
-	zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); // OPRAVA: použití pùvodní šíøky definovaného bloku
+	zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); 
 	aktivniData = aktivniBuffer;
 
 	int running = 1;
