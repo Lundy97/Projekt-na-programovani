@@ -273,10 +273,10 @@ int main()
 
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					rotacebloku(aktivniBlok, rotovanyBlok, w, h);
-					int newW = h; // Nová šíøka po rotaci
-					int newH = w; // Nová výška po rotaci
-				}
+					w = sirkabloku[aktivniBlok];
+					h = vyskabloku[aktivniBlok];
+
+					rotacebloku(blocks[aktivniBlok], rotovanyBlok[aktivniBlok], w, h);
 
 			}
 		}
@@ -330,4 +330,3 @@ int main()
 
 	return 0;
 }
-*/
