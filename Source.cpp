@@ -1,10 +1,3 @@
-#include <stdio.h>
-
-int main() {
-	printf("Hello, World!\n");
-	return 0;
-}
-/*
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
