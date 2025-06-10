@@ -277,7 +277,7 @@ int main()
 					h = vyskabloku[aktivniBlok];
 
 					rotacebloku(blocks[aktivniBlok], rotovanyBlok[aktivniBlok], w, h);
-
+				}
 			}
 		}
 	}
