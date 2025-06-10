@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -186,35 +187,25 @@ int smazPlneRadky(int board[ROWS][COLUMNS])
 
 
 
+
 int main()
 {
-	// Inicializace SDL2
 	SDL_Init(SDL_INIT_VIDEO);
 
-
-	// Vytvoøení okna
 	SDL_Window* window = SDL_CreateWindow("Tetris - Lundy verze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, COLUMNS * BLOCK_SIZE, ROWS * BLOCK_SIZE, 0);
 
-
-	// poèátek rendereru
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-
-	//Náhodný generátor
 	srand(time(NULL));
 
-
-	// Nastavení hrací plochy na 0
 	int board[ROWS][COLUMNS] = { 0 };
 
-
-	// Zisk náhodného bloku
 	int aktivniBlok = GetRandomNumber(PocetBloku);
 
-
-	// Pole pro rotovaný blok
+	// Pole pro aktivní blok, abych s tim mohl otaèet
+	int* aktivniData = blocks[aktivniBlok];
+	
 	int rotovanyBlok[PocetBloku][COLUMNS * ROWS];
-
 
 	// Výpoèet støedu
 	int x = (COLUMNS - sirkabloku[aktivniBlok]) / 2;
@@ -226,10 +217,6 @@ int main()
 	// Šíøka a výška bloku pro rotaci
 	int w = 0;
 	int h = 0;
-
-	// Vložení náhodného bloku na hrací plochu
-	vlozBlok(board, aktivniBlok, x, 0);
-
 
 	// Zapnutí smyèky
 	int running = 1;
@@ -246,7 +233,8 @@ int main()
 	// definice skóre
 	int score = 0;
 
-
+	int sirka = sirkabloku[aktivniBlok]; 
+	int vyska = vyskabloku[aktivniBlok]; 
 	// Herní smyèka
 	while (running)
 	{
@@ -273,60 +261,71 @@ int main()
 
 				if (event.key.keysym.sym == SDLK_UP)
 				{
-					w = sirkabloku[aktivniBlok];
-					h = vyskabloku[aktivniBlok];
+					sirka = sirkabloku[aktivniBlok]; 
+					vyska = vyskabloku[aktivniBlok]; 
 
 					rotacebloku(blocks[aktivniBlok], rotovanyBlok[aktivniBlok], w, h);
+
+					aktivniData = rotovanyBlok[aktivniBlok]; 
+				
+					//Otoèení bloku
+					sirka = h;
+					vyska = w;
 				}
 			}
 		}
-	}
+		// Gravitace
+		if (SDL_GetTicks() - lastTick > 500) 
+		{
+			if (!koliduje(board, aktivniBlok, x, y + 1)) 
+			{
+				y++;
+			}
+			else {
+				// uložit trvale
+				vlozBlok(board, aktivniBlok, x, y);
+				score += smazPlneRadky(board);
+				
 
-	// Gravitace
-	if (SDL_GetTicks() - lastTick > 500) {
-		if (!koliduje(board, aktivniBlok, x, y + 1)) {
-			y++;
+
+				//nový blok
+				aktivniBlok = GetRandomNumber(PocetBloku);
+				x = (COLUMNS - sirkabloku[aktivniBlok]) / 2;
+				y = 0;
+
+				if (koliduje(board, aktivniBlok, x, y)) 
+				{
+					printf("Konec!\n");
+					SDL_Delay(2000);
+					running = 0;
+				}
+			}
+			lastTick = SDL_GetTicks();
 		}
-		else {
-			// uložit trvale
-			vlozBlok(board, aktivniBlok, x, y);
-			score += smazPlneRadky(board);
-			printf("Skóre: %d\n", score);
 
+		// Vykreslení doèasného pole s padajícím blokem
 
-			//nový blok
-			aktivniBlok = GetRandomNumber(PocetBloku);
-			x = (COLUMNS - sirkabloku[aktivniBlok]) / 2;
-			y = 0;
-
-			if (koliduje(board, aktivniBlok, x, y)) {
-				printf("Konec!\n");
-				SDL_Delay(2000);
-				running = 0;
+		int doèasnýBoard[ROWS][COLUMNS];
+		for (int i = 0; i < ROWS; i++)
+		{
+			for (int j = 0; j < COLUMNS; j++)
+			{
+				doèasnýBoard[i][j] = board[i][j];
 			}
 		}
-		lastTick = SDL_GetTicks();
+
+			vlozBlok(doèasnýBoard, aktivniBlok, x, y); // pøidá blok do doèasného boardu
+			
+			renderBoard(renderer, doèasnýBoard);
+			
+			SDL_Delay(16); // 60 FPS
+
+		
 	}
-
-	// Vykreslení doèasného pole s padajícím blokem
-
-	int doèasnýBoard[ROWS][COLUMNS];
-	for (int i = 0; i < ROWS; i++)
-	{
-		for (int j = 0; j < COLUMNS; j++)
-		{
-			doèasnýBoard[i][j] = board[i][j];
-		}
-
-		vlozBlok(doèasnýBoard, aktivniBlok, x, y);
-		renderBoard(renderer, doèasnýBoard);
-		SDL_Delay(16); // 60 FPS
-
-	}
+	printf("Skore: %d\n", score);
 	SDL_DestroyRenderer(renderer); // Znièení rendereru
 	SDL_DestroyWindow(window); // Znièení okna
 	SDL_Quit();
-
 
 	return 0;
 }
