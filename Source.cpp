@@ -61,26 +61,6 @@ int Zobracene[2][3] =
 	{1,1,0}
 };
 
-// Timto se to tiskne
-void vytisknout(int board[ROWS][COLUMNS])
-{
-	for (int i = 0; i < ROWS; i++)
-	{
-		for (int j = 0; j < COLUMNS; j++)
-		{
-			if (board[i][j] == 0)
-			{
-				printf(" .");
-			}
-			else
-			{
-				printf(" #");
-			}
-		}
-		printf("\n");
-	}
-}
-
 // Pole blokù a ukazatelù na nì
 int* blocks[PocetBloku] = 
 {
@@ -267,7 +247,38 @@ int main()
 				if (event.key.keysym.sym == SDLK_a) newX--;
 				if (event.key.keysym.sym == SDLK_d) newX++;
 				if (event.key.keysym.sym == SDLK_s) newY++;
+				if (event.key.keysym.sym == SDLK_SPACE)
+				{
+					while (!koliduje(board, aktivniData, sirka, vyska, x, y + 1))
+					{
+						y++;
+					}
+					vlozBlok(board, aktivniData, sirka, vyska, x, y);
+					score += smazPlneRadky(board);
 
+					// Vygenerovat nový blok
+					aktivniBlok = GetRandomNumber(PocetBloku);
+					aktivniData = blocks[aktivniBlok];
+					sirka = sirkabloku[aktivniBlok];
+					vyska = vyskabloku[aktivniBlok];
+
+					
+					newX = x = (COLUMNS - sirka) / 2;
+					newY = y = 0;
+
+					if (koliduje(board, aktivniData, sirka, vyska, x, y))
+					{
+						printf("Konec!\n");
+						SDL_Delay(2000);
+						running = 0;
+					}
+					else
+					{
+						zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]);
+						aktivniData = aktivniBuffer;
+					}
+				}
+				
 				if (!koliduje(board, aktivniData, sirka, vyska, newX, newY))
 				{
 					x = newX;
