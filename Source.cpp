@@ -185,8 +185,13 @@ int smazPlneRadky(int board[ROWS][COLUMNS])
 	return score;
 }
 
-
-
+void rotaceblokuDoleva(int* src, int* dest, int w, int h) {
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			dest[(w - j - 1) * h + i] = src[i * w + j];
+		}
+	}
+}
 
 int main()
 {
@@ -214,7 +219,7 @@ int main()
 	// Souøadnice y pro umístìní bloku
 	int y = 0;
 
-	// Šíøka a výška bloku pro rotaci
+// Šíøka a výška bloku pro rotaci
 	int w = 0;
 	int h = 0;
 
@@ -264,7 +269,7 @@ int main()
 					sirka = sirkabloku[aktivniBlok]; 
 					vyska = vyskabloku[aktivniBlok]; 
 
-					rotacebloku(blocks[aktivniBlok], rotovanyBlok[aktivniBlok], w, h);
+					rotacebloku(blocks[aktivniBlok], rotovanyBlok[aktivniBlok], sirka, vyska);
 
 					aktivniData = rotovanyBlok[aktivniBlok]; 
 				
