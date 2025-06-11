@@ -76,7 +76,7 @@ int* blocks[PocetBloku] =
 int vyskabloku[PocetBloku] = {2, 3, 2, 3, 2, 4, 2}; // Výška blokù
 int sirkabloku[PocetBloku] = {2, 2, 3, 2, 3, 1, 3}; // Šíøka blokù
 
-//Vložení bloku do hrací plochy
+
 void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, int y)
 {
 	for (int i = 0; i < vyska; i++)
@@ -94,7 +94,7 @@ void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, 
 
 
 
-void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS]) 
+void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS], int Red, int Green, int Blue) 
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); 
 	SDL_RenderClear(renderer);
@@ -106,7 +106,7 @@ void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS])
 			if (board[y][x]) 
 			{
 				SDL_Rect rect = { x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1 };
-				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); 
+				SDL_SetRenderDrawColor(renderer, Red, Green, Blue, 255);
 				SDL_RenderFillRect(renderer, &rect);
 			}
 		}
@@ -258,6 +258,12 @@ int main()
 
 					// Vygenerovat nový blok
 					aktivniBlok = GetRandomNumber(PocetBloku);
+					if (aktivniBlok == 1)
+					{
+						int Red == 
+					};
+					
+					
 					aktivniData = blocks[aktivniBlok];
 					sirka = sirkabloku[aktivniBlok];
 					vyska = vyskabloku[aktivniBlok];

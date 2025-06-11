@@ -1,13 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\",
+  "WorkspaceRootPath": "C:\\Users\\lundama\\source\\repos\\Projekt-na-programovani\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E78F6933-5303-4FF9-A0A1-7AFA6CB202D8}|Mo\u017En\u00E1 funk\u010Dn\u00ED projekt.vcxproj|C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{E78F6933-5303-4FF9-A0A1-7AFA6CB202D8}|Mo\u017En\u00E1 funk\u010Dn\u00ED projekt.vcxproj|C:\\Users\\lundama\\source\\repos\\Projekt-na-programovani\\Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E78F6933-5303-4FF9-A0A1-7AFA6CB202D8}|Mo\u017En\u00E1 funk\u010Dn\u00ED projekt.vcxproj|solutionrelative:Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B29ED9F0-DC9F-420E-9285-97B71D6D58F8}|..\\Stara verze tetrisu\\Stara verze tetrisu.vcxproj|C:\\Users\\Lenovo\\source\\repos\\Stara verze tetrisu\\Zalozni .cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,40 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Source.cpp",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp",
+              "DocumentMoniker": "C:\\Users\\lundama\\source\\repos\\Projekt-na-programovani\\Source.cpp",
               "RelativeDocumentMoniker": "Source.cpp",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\Mo\u017En\u00E1 funk\u010Dn\u00ED projekt\\Source.cpp*",
+              "ToolTip": "C:\\Users\\lundama\\source\\repos\\Projekt-na-programovani\\Source.cpp*",
               "RelativeToolTip": "Source.cpp*",
-              "ViewState": "AgIAAPAAAAAAAAAAAAAAAAoBAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAYBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-08T17:04:29.95Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Zalozni .cpp",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\Stara verze tetrisu\\Zalozni .cpp",
-              "RelativeDocumentMoniker": "..\\Stara verze tetrisu\\Zalozni .cpp",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\Stara verze tetrisu\\Zalozni .cpp",
-              "RelativeToolTip": "..\\Stara verze tetrisu\\Zalozni .cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYBAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-10T19:39:22.705Z"
             }
           ]
         }
