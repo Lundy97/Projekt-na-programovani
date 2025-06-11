@@ -13,7 +13,6 @@ int GetRandomNumber(int max) //náhodné èíslo na generování blokù
 {
 	return rand() % max;
 }
-
 // Definice blokù
 int O[2][2] = 
 {
@@ -76,7 +75,7 @@ int* blocks[PocetBloku] =
 int vyskabloku[PocetBloku] = {2, 3, 2, 3, 2, 4, 2}; // Výška blokù
 int sirkabloku[PocetBloku] = {2, 2, 3, 2, 3, 1, 3}; // Šíøka blokù
 
-
+//Vložení bloku do hrací plochy
 void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, int y)
 {
 	for (int i = 0; i < vyska; i++)
@@ -94,7 +93,7 @@ void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, 
 
 
 
-void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS], int Red, int Green, int Blue) 
+void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS]) 
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); 
 	SDL_RenderClear(renderer);
@@ -106,7 +105,7 @@ void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS], int Red, int 
 			if (board[y][x]) 
 			{
 				SDL_Rect rect = { x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1 };
-				SDL_SetRenderDrawColor(renderer, Red, Green, Blue, 255);
+				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 				SDL_RenderFillRect(renderer, &rect);
 			}
 		}
@@ -222,9 +221,7 @@ int main()
 	int vyska = vyskabloku[aktivniBlok];
 	int x = (COLUMNS - sirka) / 2;
 	int y = 0;
-	int Red = 0;
-	int Green = 0;
-	int Blue = 0;
+
 	zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); 
 	aktivniData = aktivniBuffer;
 
@@ -245,7 +242,15 @@ int main()
 			{
 				int newX = x;
 				int newY = y;
-
+				
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+				{
+					SDL_DestroyRenderer(renderer);
+					SDL_DestroyWindow(window);
+					SDL_Quit();
+					printf("Ukonceni pomoci ESCAPE!?!?!");
+					return 0;
+				}
 				if (event.key.keysym.sym == SDLK_a) newX--;
 				if (event.key.keysym.sym == SDLK_d) newX++;
 				if (event.key.keysym.sym == SDLK_s) newY++;
@@ -353,50 +358,9 @@ int main()
 		for (int i = 0; i < ROWS; i++)
 			for (int j = 0; j < COLUMNS; j++)
 				docasnyBoard[i][j] = board[i][j];
-		
-		if (aktivniBlok == 1) //O
-		{
-			int Red = 255;
-			int Green = 255;
-			int Blue = 0;
-		};
-		if (aktivniBlok == 2) //L
-		{
-			int Red = 255;
-			int Green = 125;
-			int Blue = 0;
-		}
-		if (aktivniBlok == 3) //T
-		{
-			int Red = 125;
-			int Green = 0;
-			int Blue = 255;
-		};
-		if (aktivniBlok == 4) //Lobracene
-		{
-			int Red = 0;
-			int Green = 0;
-			int Blue = 255;
-		}if (aktivniBlok == 5) //Z
-		{
-			int Red = 255;
-			int Green = 0;
-			int Blue = 0;
-		};
-		if (aktivniBlok == 6) //I
-		{
-			int Red = 0;
-			int Green = 255;
-			int Blue = 255;
-		}if (aktivniBlok == 7) //Zobracene
-		{
-			int Red = 0;
-			int Green = 255;
-			int Blue = 0;
-		};
 
 		vlozBlok(docasnyBoard, aktivniData, sirka, vyska, x, y);
-		renderBoard(renderer, docasnyBoard, Red, Green, Blue);
+		renderBoard(renderer, docasnyBoard);
 
 		SDL_Delay(16); 
 	}
