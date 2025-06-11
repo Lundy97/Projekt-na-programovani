@@ -1,4 +1,4 @@
-#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED //wow
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@ int L[3][2] =
 	{1,1}
 };
 
-int T[2][3] = 
+int T[2][3] =
 {
 	{1,1,1},
 	{0,1,0}
