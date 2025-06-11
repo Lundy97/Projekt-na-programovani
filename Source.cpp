@@ -222,7 +222,9 @@ int main()
 	int vyska = vyskabloku[aktivniBlok];
 	int x = (COLUMNS - sirka) / 2;
 	int y = 0;
-
+	int Red = 0;
+	int Green = 0;
+	int Blue = 0;
 	zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); 
 	aktivniData = aktivniBuffer;
 
@@ -258,12 +260,6 @@ int main()
 
 					// Vygenerovat nový blok
 					aktivniBlok = GetRandomNumber(PocetBloku);
-					if (aktivniBlok == 1)
-					{
-						int Red == 
-					};
-					
-					
 					aktivniData = blocks[aktivniBlok];
 					sirka = sirkabloku[aktivniBlok];
 					vyska = vyskabloku[aktivniBlok];
@@ -357,9 +353,50 @@ int main()
 		for (int i = 0; i < ROWS; i++)
 			for (int j = 0; j < COLUMNS; j++)
 				docasnyBoard[i][j] = board[i][j];
+		
+		if (aktivniBlok == 1) //O
+		{
+			int Red = 255;
+			int Green = 255;
+			int Blue = 0;
+		};
+		if (aktivniBlok == 2) //L
+		{
+			int Red = 255;
+			int Green = 125;
+			int Blue = 0;
+		}
+		if (aktivniBlok == 3) //T
+		{
+			int Red = 125;
+			int Green = 0;
+			int Blue = 255;
+		};
+		if (aktivniBlok == 4) //Lobracene
+		{
+			int Red = 0;
+			int Green = 0;
+			int Blue = 255;
+		}if (aktivniBlok == 5) //Z
+		{
+			int Red = 255;
+			int Green = 0;
+			int Blue = 0;
+		};
+		if (aktivniBlok == 6) //I
+		{
+			int Red = 0;
+			int Green = 255;
+			int Blue = 255;
+		}if (aktivniBlok == 7) //Zobracene
+		{
+			int Red = 0;
+			int Green = 255;
+			int Blue = 0;
+		};
 
 		vlozBlok(docasnyBoard, aktivniData, sirka, vyska, x, y);
-		renderBoard(renderer, docasnyBoard);
+		renderBoard(renderer, docasnyBoard, Red, Green, Blue);
 
 		SDL_Delay(16); 
 	}
