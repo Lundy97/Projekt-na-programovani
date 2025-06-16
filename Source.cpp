@@ -13,70 +13,63 @@ int GetRandomNumber(int max) //náhodné èíslo na generování blokù
 {
 	return rand() % max;
 }
+
 // Definice blokù
-int O[2][2] = 
-{
+int O[2][2] = {
 	{1,1},
 	{1,1}
 };
 
-int L[3][2] = 
-{
+int L[3][2] = {
 	{1,0},
 	{1,0},
 	{1,1}
 };
 
-int T[2][3] =
-{
+int T[2][3] = {
 	{1,1,1},
 	{0,1,0}
 };
 
-int Lobracene[3][2] = 
-{
+int Lobracene[3][2] = {
 	{0,1},
 	{0,1},
 	{1,1}
 };
 
-int Z[2][3] = 
-{
+int Z[2][3] = {
 	{1,1,0},
 	{0,1,1}
 };
 
-int I[4][1] = 
-{
+int I[4][1] = {
 	{1},
 	{1},
 	{1},
 	{1}
 };
 
-int Zobracene[2][3] = 
-{
+int Zobracene[2][3] = {
 	{0,1,1},
 	{1,1,0}
 };
 
 // Pole blokù a ukazatelù na nì
-int* blocks[PocetBloku] = 
-{
+int* blocks[PocetBloku] = {
 	(int*)O,
 	(int*)L,
 	(int*)T,
 	(int*)Lobracene,
 	(int*)Z,
 	(int*)I,
-	(int*)Zobracene 
+	(int*)Zobracene
 };
 
-int vyskabloku[PocetBloku] = {2, 3, 2, 3, 2, 4, 2}; // Výška blokù
-int sirkabloku[PocetBloku] = {2, 2, 3, 2, 3, 1, 3}; // Šíøka blokù
+int vyskabloku[PocetBloku] = { 2, 3, 2, 3, 2, 4, 2 }; // Výška blokù
+int sirkabloku[PocetBloku] = { 2, 2, 3, 2, 3, 1, 3 }; // Šíøka blokù
 
-//Vložení bloku do hrací plochy
-void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, int y)
+//Vložení bloku do hrací plochy (novì s parametrem typBloku pro barvy)
+void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, int y, int typBloku)
 {
 	for (int i = 0; i < vyska; i++)
 	{
@@ -85,27 +78,37 @@ void vlozBlok(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, 
 			if (data[i * sirka + j] == 1)
 			{
 				if (y + i >= 0 && y + i < ROWS && x + j >= 0 && x + j < COLUMNS)
-					board[y + i][x + j] = 1;
+					board[y + i][x + j] = typBloku + 1; // Uložíme èíslo bloku (1 až 7)
 			}
 		}
 	}
 }
 
-
-
-void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS]) 
+// vykreslení hrací plochy
+void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS])
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); 
+	SDL_Color barvy[] = {
+		{255, 255,   0}, // O - žlutá
+		{255, 165,   0}, // L - oranžová
+		{128,   0, 128}, // T - fialová
+		{  0,   0, 255}, // L obrácené - modrá
+		{255,   0,   0}, // Z - èervená
+		{  0, 255, 255}, // I - tyrkys
+		{  0, 255,   0}, // Z obrácené - zelená
+	};
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // vyèistit èernì
 	SDL_RenderClear(renderer);
 
-	for (int y = 0; y < ROWS; y++) 
+	for (int y = 0; y < ROWS; y++)
 	{
-		for (int x = 0; x < COLUMNS; x++) 
+		for (int x = 0; x < COLUMNS; x++)
 		{
-			if (board[y][x]) 
+			if (board[y][x])
 			{
+				int blok = board[y][x] - 1;
 				SDL_Rect rect = { x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1 };
-				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+				SDL_SetRenderDrawColor(renderer, barvy[blok].r, barvy[blok].g, barvy[blok].b, 255);
 				SDL_RenderFillRect(renderer, &rect);
 			}
 		}
@@ -114,6 +117,7 @@ void renderBoard(SDL_Renderer* renderer, int board[ROWS][COLUMNS])
 	SDL_RenderPresent(renderer);
 }
 
+// Kontrola kolize
 int koliduje(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, int y)
 {
 	for (int i = 0; i < vyska; i++)
@@ -122,33 +126,33 @@ int koliduje(int board[ROWS][COLUMNS], int* data, int sirka, int vyska, int x, i
 		{
 			if (data[i * sirka + j] == 1)
 			{
-				if (y + i >= ROWS || x + j >= COLUMNS || x + j < 0 || (y + i >= 0 && board[y + i][x + j] == 1))
-				{
+				if (y + i >= ROWS || x + j >= COLUMNS || x + j < 0 || (y + i >= 0 && board[y + i][x + j]))
 					return 1;
-				}
 			}
 		}
 	}
 	return 0;
 }
 
-//rotace doprava
-void rotacebloku(int* src, int* dest, int w, int h) 
+// Rotace bloku doprava
+void rotacebloku(int* src, int* dest, int w, int h)
 {
-	for (int i = 0; i < h; i++) 
+	for (int i = 0; i < h; i++)
 	{
-		for (int j = 0; j < w; j++) 
+		for (int j = 0; j < w; j++)
 		{
 			dest[j * h + (h - i - 1)] = src[i * w + j];
 		}
 	}
 }
 
-//rotace doleva
-void rotaceblokuDoleva(int* src, int* dest, int w, int h) 
+// Rotace doleva
+void rotaceblokuDoleva(int* src, int* dest, int w, int h)
 {
-	for (int i = 0; i < h; i++) {
-		for (int j = 0; j < w; j++) {
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
 			dest[(w - j - 1) * h + i] = src[i * w + j];
 		}
 	}
@@ -169,27 +173,24 @@ int smazPlneRadky(int board[ROWS][COLUMNS])
 				break;
 			}
 		}
-		if (plny) {
+		if (plny)
+		{
 			for (int k = i; k > 0; k--)
-			{ 
+			{
 				for (int j = 0; j < COLUMNS; j++)
-				{
 					board[k][j] = board[k - 1][j];
-				}
 			}
 			for (int j = 0; j < COLUMNS; j++)
-			{
 				board[0][j] = 0;
-			}
+
 			score += 250;
 		}
 	}
 	return score;
 }
 
-
 int aktivniBuffer[16]; // buffer na aktivní blok
-int rotovanyBlok[16]; // pole pro rotovaný blok
+int rotovanyBlok[16];  // pole pro rotovaný blok
 
 // Funkce pro kopírování bloku
 void zkopirujBlok(int* src, int* dest, int sirkaSrc, int vyska)
@@ -222,7 +223,7 @@ int main()
 	int x = (COLUMNS - sirka) / 2;
 	int y = 0;
 
-	zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); 
+	zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
 	aktivniData = aktivniBuffer;
 
 	int running = 1;
@@ -242,13 +243,12 @@ int main()
 			{
 				int newX = x;
 				int newY = y;
-				
+
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 				{
 					SDL_DestroyRenderer(renderer);
 					SDL_DestroyWindow(window);
 					SDL_Quit();
-					printf("Ukonceni pomoci ESCAPE!?!?!");
 					return 0;
 				}
 				if (event.key.keysym.sym == SDLK_a) newX--;
@@ -256,43 +256,36 @@ int main()
 				if (event.key.keysym.sym == SDLK_s) newY++;
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
-					while (!koliduje(board, aktivniData, sirka, vyska, x, y + 1))
-					{
-						y++;
-					}
-					vlozBlok(board, aktivniData, sirka, vyska, x, y);
+					while (!koliduje(board, aktivniData, sirka, vyska, x, y + 1)) y++;
+					vlozBlok(board, aktivniData, sirka, vyska, x, y, aktivniBlok);
 					score += smazPlneRadky(board);
 
-					// Vygenerovat nový blok
 					aktivniBlok = GetRandomNumber(PocetBloku);
 					aktivniData = blocks[aktivniBlok];
 					sirka = sirkabloku[aktivniBlok];
 					vyska = vyskabloku[aktivniBlok];
-
-					
-					newX = x = (COLUMNS - sirka) / 2;
-					newY = y = 0;
+					x = (COLUMNS - sirka) / 2;
+					y = 0;
 
 					if (koliduje(board, aktivniData, sirka, vyska, x, y))
 					{
-						printf("Konec!\n");
 						SDL_Delay(2000);
 						running = 0;
 					}
 					else
 					{
-						zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]);
+						zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
 						aktivniData = aktivniBuffer;
 					}
 				}
 				
+
 				if (!koliduje(board, aktivniData, sirka, vyska, newX, newY))
 				{
 					x = newX;
 					y = newY;
 				}
 
-				// rotace doleva
 				if (event.key.keysym.sym == SDLK_q)
 				{
 					for (int i = 0; i < 16; i++) rotovanyBlok[i] = 0;
@@ -306,7 +299,6 @@ int main()
 					}
 				}
 
-				// rotace doprava
 				if (event.key.keysym.sym == SDLK_e)
 				{
 					for (int i = 0; i < 16; i++) rotovanyBlok[i] = 0;
@@ -325,11 +317,10 @@ int main()
 		if (SDL_GetTicks() - lastTick > 500)
 		{
 			if (!koliduje(board, aktivniData, sirka, vyska, x, y + 1))
-			{
 				y++;
-			}
-			else {
-				vlozBlok(board, aktivniData, sirka, vyska, x, y);
+			else
+			{
+				vlozBlok(board, aktivniData, sirka, vyska, x, y, aktivniBlok);
 				score += smazPlneRadky(board);
 
 				aktivniBlok = GetRandomNumber(PocetBloku);
@@ -341,34 +332,33 @@ int main()
 
 				if (koliduje(board, aktivniData, sirka, vyska, x, y))
 				{
-					printf("Konec!\n");
-					SDL_Delay(2000); // Pauza pro zobrazení konce hry
+					SDL_Delay(2000);
 					running = 0;
 				}
-				else 
+				else
 				{
-					zkopirujBlok(aktivniData, aktivniBuffer, sirkabloku[aktivniBlok], vyskabloku[aktivniBlok]); 
-					aktivniData = aktivniBuffer; 
+					zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
+					aktivniData = aktivniBuffer;
 				}
 			}
-			lastTick = SDL_GetTicks(); 
+			lastTick = SDL_GetTicks();
 		}
 
-		int docasnyBoard[ROWS][COLUMNS]; 
+		int docasnyBoard[ROWS][COLUMNS];
 		for (int i = 0; i < ROWS; i++)
 			for (int j = 0; j < COLUMNS; j++)
 				docasnyBoard[i][j] = board[i][j];
 
-		vlozBlok(docasnyBoard, aktivniData, sirka, vyska, x, y);
+		vlozBlok(docasnyBoard, aktivniData, sirka, vyska, x, y, aktivniBlok);
 		renderBoard(renderer, docasnyBoard);
 
-		SDL_Delay(16); 
+		SDL_Delay(16);
 	}
 
-	printf("Skore: %d\n", score);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
+	printf("Game Over! Skore: %d\n", score);
 	return 0;
 }
