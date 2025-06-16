@@ -254,6 +254,7 @@ int main()
 				if (event.key.keysym.sym == SDLK_a) newX--;
 				if (event.key.keysym.sym == SDLK_d) newX++;
 				if (event.key.keysym.sym == SDLK_s) newY++;
+				
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
 					while (!koliduje(board, aktivniData, sirka, vyska, x, y + 1)) y++;
@@ -262,12 +263,19 @@ int main()
 
 					// GENEROVÁNÍ NOVÉHO BLOKU
 					aktivniBlok = GetRandomNumber(PocetBloku);
+					
+					// Jestli je blok v poli
 					aktivniData = blocks[aktivniBlok];
+					
 					sirka = sirkabloku[aktivniBlok];
 					vyska = vyskabloku[aktivniBlok];
+					
 					x = (COLUMNS - sirka) / 2;
 					y = 0;
-
+					
+					newX = x; // resetování pozice
+					newY = y; // resetování pozice
+					
 					zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
 					aktivniData = aktivniBuffer;
 
