@@ -260,6 +260,7 @@ int main()
 					vlozBlok(board, aktivniData, sirka, vyska, x, y, aktivniBlok);
 					score += smazPlneRadky(board);
 
+					// GENEROVÁNÍ NOVÉHO BLOKU
 					aktivniBlok = GetRandomNumber(PocetBloku);
 					aktivniData = blocks[aktivniBlok];
 					sirka = sirkabloku[aktivniBlok];
@@ -267,16 +268,16 @@ int main()
 					x = (COLUMNS - sirka) / 2;
 					y = 0;
 
+					zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
+					aktivniData = aktivniBuffer;
+
 					if (koliduje(board, aktivniData, sirka, vyska, x, y))
 					{
 						SDL_Delay(2000);
 						running = 0;
 					}
-					else
-					{
-						zkopirujBlok(aktivniData, aktivniBuffer, sirka, vyska);
-						aktivniData = aktivniBuffer;
-					}
+
+					
 				}
 				
 
