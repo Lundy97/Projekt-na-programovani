@@ -246,6 +246,7 @@ int main()
 
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 				{
+					printf("Odešel jsi ze hry.\n");
 					SDL_DestroyRenderer(renderer);
 					SDL_DestroyWindow(window);
 					SDL_Quit();
