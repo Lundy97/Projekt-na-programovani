@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\lib;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Lenovo\source\repos\Projekt-na-programovani\SDL2-2.32.8;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Lenovo\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\lib;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,13 +107,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\include;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Lenovo\source\repos\Projekt-na-programovani\SDL2-2.32.8\include;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\include;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib\x64;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Lenovo\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib\x64;C:\Users\lundama\source\repos\Projekt-na-programovani\SDL2-2.32.8\lib\x64;C:\Users\Lenovo\source\repos\Projekt-na-programovanicko\SDL2-2.32.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
